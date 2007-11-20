@@ -1,0 +1,27 @@
+This is the Perl distribution Hash-Rename.
+
+INSTALLATION
+
+Hash-Rename installation is straightforward. If your CPAN shell is set up, you
+should just be able to do
+
+    % cpan Hash::Rename
+
+Download it, unpack it, then build it as per the usual:
+
+    % perl Makefile.PL
+    % make && make test
+
+Then install it:
+
+    % make install
+
+DOCUMENTATION
+
+Hash-Rename documentation is available as in POD. So you can do:
+
+    % perldoc Hash::Rename
+
+to read the documentation online with your favorite pager.
+
+Marcel Gruenauer

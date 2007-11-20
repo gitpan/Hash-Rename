@@ -1,0 +1,10 @@
+---
+global:
+  name: Hash-Rename
+releases:
+  - author: 'Marcel Gruenauer <marcel@cpan.org>'
+    changes:
+      - original version
+    date: 2007-11-20T10:39:20Z
+    tags: []
+    version: 0.01
