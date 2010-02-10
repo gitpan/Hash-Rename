@@ -1,10 +1,14 @@
----
-global:
-  name: Hash-Rename
-releases:
-  - author: 'Marcel Gruenauer <marcel@cpan.org>'
-    changes:
-      - original version
-    date: 2007-11-20T10:39:20Z
-    tags: []
-    version: 0.01
+Revision history for Perl extension Hash-Rename
+
+0.03  Wed 2010.02.10 10:52:05 CET (Marcel Gruenauer <marcel@cpan.org>)
+     - Changed dist style and Changes back to standard. People didn't like it -
+       the nail that sticks out gets hammered down.
+     - Added standard test files; this will also help with CPANTS.
+
+0.02  Thu, 29 May 2008 12:05:38 -0000 (Marcel Gruenauer <marcel@cpan.org>)
+     - set the version to 0.02
+     - updated t/perlcriticrc
+     - .shipit: fixed svk.tagpattern
+
+0.01  Tue, 20 Nov 2007 10:39:20 -0000 (Marcel Gruenauer <marcel@cpan.org>)
+     - original version

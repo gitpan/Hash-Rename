@@ -8,7 +8,7 @@ use Sub::Uplevel qw( uplevel );
 use base qw( Exporter );
 use Carp;
 
-our $VERSION = '0.25';
+our $VERSION = '0.27';
 our @EXPORT = qw(dies_ok lives_ok throws_ok lives_and);
 
 my $Tester = Test::Builder->new;
@@ -23,11 +23,26 @@ sub import {
     $self->export_to_level( 1, $self, $_ ) foreach @EXPORT;
 }
 
-#line 78
+#line 84
 
+sub _quiet_caller (;$) { ## no critic Prototypes
+    my $height = $_[0];
+    $height++;
+    if( wantarray and !@_ ) {
+        return (CORE::caller($height))[0..2];
+    }
+    else {
+        return CORE::caller($height);
+    }
+}
 
 sub _try_as_caller {
     my $coderef = shift;
+
+    # local works here because Sub::Uplevel has already overridden caller
+    local *CORE::GLOBAL::caller;
+    { no warnings 'redefine'; *CORE::GLOBAL::caller = \&_quiet_caller; }
+
     eval { uplevel 3, $coderef };
     return $@;
 };
@@ -50,31 +65,7 @@ sub _exception_as_string {
 };
 
 
-#line 125
-
-
-sub dies_ok (&;$) {
-    my ( $coderef, $description ) = @_;
-    my $exception = _try_as_caller( $coderef );
-    my $ok = $Tester->ok( _is_exception($exception), $description );
-    $@ = $exception;
-    return $ok;
-}
-
-
-#line 165
-
-sub lives_ok (&;$) {
-    my ( $coderef, $description ) = @_;
-    my $exception = _try_as_caller( $coderef );
-    my $ok = $Tester->ok( ! _is_exception( $exception ), $description );
-	$Tester->diag( _exception_as_string( "died:", $exception ) ) unless $ok;
-    $@ = $exception;
-    return $ok;
-}
-
-
-#line 218
+#line 169
 
 
 sub throws_ok (&$;$) {
@@ -100,7 +91,30 @@ sub throws_ok (&$;$) {
 };
 
 
-#line 272
+#line 215
+
+sub dies_ok (&;$) {
+    my ( $coderef, $description ) = @_;
+    my $exception = _try_as_caller( $coderef );
+    my $ok = $Tester->ok( _is_exception($exception), $description );
+    $@ = $exception;
+    return $ok;
+}
+
+
+#line 254
+
+sub lives_ok (&;$) {
+    my ( $coderef, $description ) = @_;
+    my $exception = _try_as_caller( $coderef );
+    my $ok = $Tester->ok( ! _is_exception( $exception ), $description );
+	$Tester->diag( _exception_as_string( "died:", $exception ) ) unless $ok;
+    $@ = $exception;
+    return $ok;
+}
+
+
+#line 294
 
 sub lives_and (&;$) {
     my ( $test, $description ) = @_;
@@ -124,6 +138,6 @@ sub lives_and (&;$) {
     return;
 }
 
-#line 431
+#line 460
 
 1;
