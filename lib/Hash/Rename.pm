@@ -1,8 +1,10 @@
-package Hash::Rename;
-use 5.006;
+use 5.008;
 use strict;
 use warnings;
-our $VERSION = '0.03';
+
+package Hash::Rename;
+our $VERSION = '1.100860';
+# ABSTRACT: Rename hash keys
 use Exporter qw(import);
 our @EXPORT = ('hash_rename');
 
@@ -27,11 +29,18 @@ sub hash_rename (\%@) {
     %$hash = %new_hash;
 }
 1;
+
+
 __END__
+=pod
 
 =head1 NAME
 
 Hash::Rename - Rename hash keys
+
+=head1 VERSION
+
+version 1.100860
 
 =head1 SYNOPSIS
 
@@ -49,9 +58,7 @@ Using this module you can rename a hash's keys in place.
 
 =head1 FUNCTIONS
 
-=over 4
-
-=item C<hash_rename>
+=head2 hash_rename
 
 This function is automatically exported. It takes a hash to rename and another
 hash of instructions on how to rename they keys.
@@ -96,35 +103,39 @@ they are described above. So you can have:
 
     hash_rename %hash, prepend => '-', append => '=';
 
-=back
+=head1 INSTALLATION
+
+See perlmodinstall for information and options on installing Perl modules.
 
 =head1 BUGS AND LIMITATIONS
 
 No bugs have been reported.
 
 Please report any bugs or feature requests through the web interface at
-L<http://rt.cpan.org>.
-
-=head1 INSTALLATION
-
-See perlmodinstall for information and options on installing Perl modules.
+L<http://rt.cpan.org/Public/Dist/Display.html?Name=Hash-Rename>.
 
 =head1 AVAILABILITY
 
 The latest version of this module is available from the Comprehensive Perl
-Archive Network (CPAN). Visit <http://www.perl.com/CPAN/> to find a CPAN
-site near you. Or see L<http://search.cpan.org/dist/Hash-Rename/>.
+Archive Network (CPAN). Visit L<http://www.perl.com/CPAN/> to find a CPAN
+site near you, or see
+L<http://search.cpan.org/dist/Hash-Rename/>.
 
-=head1 AUTHORS
+The development version lives at
+L<http://github.com/hanekomu/Hash-Rename/>.
+Instead of sending patches, please fork this project using the standard git
+and github infrastructure.
 
-Marcel GrE<uuml>nauer, C<< <marcel@cpan.org> >>
+=head1 AUTHOR
+
+  Marcel Gruenauer <marcel@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2007-2009 by the authors.
+This software is copyright (c) 2007 by Marcel Gruenauer.
 
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
 
