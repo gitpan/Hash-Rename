@@ -1,12 +1,9 @@
-use 5.008;
+package Hash::Rename;
 use strict;
 use warnings;
-
-package Hash::Rename;
-our $VERSION = '1.100860';
-# ABSTRACT: Rename hash keys
 use Exporter qw(import);
-our @EXPORT = ('hash_rename');
+our $VERSION = '2.00';
+our @EXPORT  = ('hash_rename');
 
 sub hash_rename (\%@) {
     my ($hash, %args) = @_;
@@ -24,23 +21,25 @@ sub hash_rename (\%@) {
         }
         die "duplicate result key [$key] from original key [$orig_key]\n"
           if defined($args{strict}) && exists $new_hash{$key};
-        $new_hash{$key} = $hash->{$orig_key};
+
+        # apply 'recurse' option, if given
+        my $val = $hash->{$orig_key};
+        if ($args{recurse} && (ref($val) || '') eq 'HASH') {
+
+            # suppress "called too early to check prototype ..." warning
+            &hash_rename($val, %args);
+        }
+        $new_hash{$key} = $val;
     }
     %$hash = %new_hash;
 }
 1;
 
-
-__END__
 =pod
 
 =head1 NAME
 
 Hash::Rename - Rename hash keys
-
-=head1 VERSION
-
-version 1.100860
 
 =head1 SYNOPSIS
 
@@ -65,7 +64,7 @@ hash of instructions on how to rename they keys.
 
 The syntax is like this:
 
-    hash_rename %hash, key1 => 'value1', keys2 => 'value2';
+    hash_rename %hash, instruction1 => 'value1', instruction2 => 'value2';
 
 The following instructions are supported:
 
@@ -96,6 +95,11 @@ If present and set to a true value, the resulting keys are checked for
 duplicates. C<hash_rename()> will die if it detects a duplicate resulting hash
 key. They keys of the hash to change are processed in alphabetical order.
 
+=item C<recurse>
+
+Each hash value that is itself a hash reference is renamed with the same
+arguments as the original hash.
+
 =back
 
 If several instructions are given, they are processed in the order in which
@@ -103,39 +107,23 @@ they are described above. So you can have:
 
     hash_rename %hash, prepend => '-', append => '=';
 
-=head1 INSTALLATION
-
-See perlmodinstall for information and options on installing Perl modules.
-
-=head1 BUGS AND LIMITATIONS
-
-No bugs have been reported.
-
-Please report any bugs or feature requests through the web interface at
-L<http://rt.cpan.org/Public/Dist/Display.html?Name=Hash-Rename>.
-
-=head1 AVAILABILITY
-
-The latest version of this module is available from the Comprehensive Perl
-Archive Network (CPAN). Visit L<http://www.perl.com/CPAN/> to find a CPAN
-site near you, or see
-L<http://search.cpan.org/dist/Hash-Rename/>.
-
-The development version lives at
-L<http://github.com/hanekomu/Hash-Rename/>.
-Instead of sending patches, please fork this project using the standard git
-and github infrastructure.
-
 =head1 AUTHOR
 
-  Marcel Gruenauer <marcel@cpan.org>
+The following person is the author of all the files provided in this
+distribution unless explicitly noted otherwise.
+
+Marcel Gruenauer <marcel@cpan.org>, L<http://marcelgruenauer.com>
+
+=head1 CONTRIBUTORS
+
+Masayuki Matsuki (@songmu) added the C<recurse> option.
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2007 by Marcel Gruenauer.
+The following copyright notice applies to all the files provided in this
+distribution, including binary files, unless explicitly noted otherwise.
 
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+This software is copyright (c) 2014 by Marcel Gruenauer.
 
-=cut
-
+This is free software; you can redistribute it and/or modify it under the same
+terms as the Perl 5 programming language system itself.

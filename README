@@ -1,9 +1,6 @@
 NAME
     Hash::Rename - Rename hash keys
 
-VERSION
-    version 1.100860
-
 SYNOPSIS
         use Hash::Rename;
 
@@ -23,7 +20,7 @@ FUNCTIONS
 
     The syntax is like this:
 
-        hash_rename %hash, key1 => 'value1', keys2 => 'value2';
+        hash_rename %hash, instruction1 => 'value1', instruction2 => 'value2';
 
     The following instructions are supported:
 
@@ -49,36 +46,29 @@ FUNCTIONS
         resulting hash key. They keys of the hash to change are processed in
         alphabetical order.
 
+    "recurse"
+        Each hash value that is itself a hash reference is renamed with the
+        same arguments as the original hash.
+
     If several instructions are given, they are processed in the order in
     which they are described above. So you can have:
 
         hash_rename %hash, prepend => '-', append => '=';
 
-INSTALLATION
-    See perlmodinstall for information and options on installing Perl
-    modules.
-
-BUGS AND LIMITATIONS
-    No bugs have been reported.
-
-    Please report any bugs or feature requests through the web interface at
-    <http://rt.cpan.org/Public/Dist/Display.html?Name=Hash-Rename>.
-
-AVAILABILITY
-    The latest version of this module is available from the Comprehensive
-    Perl Archive Network (CPAN). Visit <http://www.perl.com/CPAN/> to find a
-    CPAN site near you, or see <http://search.cpan.org/dist/Hash-Rename/>.
-
-    The development version lives at
-    <http://github.com/hanekomu/Hash-Rename/>. Instead of sending patches,
-    please fork this project using the standard git and github
-    infrastructure.
-
 AUTHOR
-      Marcel Gruenauer <marcel@cpan.org>
+    The following person is the author of all the files provided in this
+    distribution unless explicitly noted otherwise.
+
+    Marcel Gruenauer <marcel@cpan.org>, <http://marcelgruenauer.com>
+
+CONTRIBUTORS
+    Masayuki Matsuki (@songmu) added the "recurse" option.
 
 COPYRIGHT AND LICENSE
-    This software is copyright (c) 2007 by Marcel Gruenauer.
+    The following copyright notice applies to all the files provided in this
+    distribution, including binary files, unless explicitly noted otherwise.
+
+    This software is copyright (c) 2014 by Marcel Gruenauer.
 
     This is free software; you can redistribute it and/or modify it under
     the same terms as the Perl 5 programming language system itself.

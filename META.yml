@@ -1,32 +1,32 @@
 ---
 abstract: 'Rename hash keys'
 author:
-  - 'Marcel Gruenauer <marcel@cpan.org>'
-build_requires: {}
+  - 'The following person is the author of all the files provided in this'
+build_requires:
+  Test::Differences: 0
+  Test::Exception: 0
+  Test::More: 0
 configure_requires:
-  ExtUtils::MakeMaker: 6.11
-generated_by: 'Dist::Zilla version 1.100711'
+  Module::Build::Tiny: 0.030
+dynamic_config: 0
+generated_by: 'Dist::Milla version v1.0.4, Dist::Zilla version 5.008, CPAN::Meta::Converter version 2.133380'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: Hash-Rename
-provides:
-  Hash::Rename:
-    file: lib/Hash/Rename.pm
-    version: 1.100860
-requires:
-  Carp: 0
-  English: 0
-  Exporter: 0
-  File::Find: 0
-  File::Temp: 0
-  Scalar::Util: 0
-  Test::Exception: 0
-  Test::More: 0.88
-  perl: 5.008
+no_index:
+  directory:
+    - t
+    - xt
+    - inc
+    - share
+    - eg
+    - examples
 resources:
-  bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=Hash-Rename
-  homepage: http://search.cpan.org/dist/Hash-Rename/
-  repository: http://github.com/hanekomu/Hash-Rename
-version: 1.100860
+  bugtracker: https://github.com/marcelgruenauer/Hash-Rename/issues
+  homepage: https://github.com/marcelgruenauer/Hash-Rename
+  repository: https://github.com/marcelgruenauer/Hash-Rename.git
+version: 2.00
+x_contributors:
+  - 'Marcel Gruenauer <hanekomu@gmail.com>'
